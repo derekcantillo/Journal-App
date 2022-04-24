@@ -14,12 +14,16 @@ export const AppRouter = () => {
   const dispatch = useDispatch()
 
   const [isChecking, setChecking] = useState(true)
+  const [isLoggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
     
     firebase.auth().onAuthStateChanged((user)=>{
       if(user?.uid){
         dispatch(login(user.uid, user.displayName))
+        setLoggedIn(true)
+      }else{
+        setLoggedIn(false)
       }
       setChecking(false)
     })
